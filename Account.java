@@ -67,6 +67,7 @@ public abstract class Account{
             //get transaction date
             //make and store new transaction object
             double newBal = getBalance() - 0;//transaction amount
+            //if(newBal < bank.
             setBalance(newBal);
         }
     }

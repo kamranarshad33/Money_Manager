@@ -1,11 +1,13 @@
 public class CheckingAcc extends Account{
     //private final MINBAL = 500;
-    private final OVERDRAFT = 30;
+    private final double OVERDRAFT_FEE = 30;
     
-    private CheckingAcc(){
-        
+    private CheckingAcc(){ 
+           
     }
-    public CheckingAcc(){
+    public CheckingAcc(String username, double balance){
+        super(username, balance);
+    }
     
-    }
+    
 }

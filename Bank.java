@@ -17,16 +17,31 @@ public class Bank{
         this.bankName = name;
     }
     
-    
     public Bank(String name, double minBal){
         this(name);
         this.minBalance = minBal;
     }
     
+    public String getBankName(){
+        return this.bankName;
+    }
+    
+    public double getMinBalance(){
+        return this.minBalance;
+    }
+    
+    private void setBankName(String bankName){
+        this.bankName = bankName;
+    }
+    
+    private void setMinBalance(double minBalance){
+        this.minBalance = minBalance;
+    }
+    
     public int existingUser(String username){
         int index = -1;
         for(int i = 0; i < this.usernames.length; i++){
-            if(username.trim().equalsIgnoreCase(usernames[i].trim())){
+            if(username.trim().equalsIgnoreCase(this.usernames[i].trim())){
                 index = i;
             }
         }
@@ -55,7 +70,7 @@ public class Bank{
         Account newAcc = new CheckingAcc(username, balance);     
     }
     
-    public void addCheckingAcc(String username, String password, double balance){
+    public void addSavingsAcc(String username, String password, double balance){
         //boolean validUser = validateUser(username, password);
         Account newAcc = new SavingsAcc(username, balance);
     }
