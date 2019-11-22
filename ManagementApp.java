@@ -99,16 +99,18 @@ public class ManagementApp{
                else {
                   switch(option) {
                      case 1: // Search by Date
-                        date = JOptionPane.showInputDialog(null, "Enter a date in the format of MM/DD/YY: ");
-                        if (validDate(date)) {
+                        do {
+                           date = JOptionPane.showInputDialog(null, "Enter a date in the format of MM/DD/YY: ");
                         
-                        }
+                        } while (!validDate(date)); 
                         break;
                      case 2: // Search by transaction category
-                        category = Integer.parseInt(JOptionPane.showInputDialog(null, "Search by:\n 1) Deposits\n 2) Withdrawals"));
-                        if (category < 1 || category > 2) {
-                           throw new NumberFormatException();
-                        }
+                        do  {
+                           category = Integer.parseInt(JOptionPane.showInputDialog(null, "Search by:\n 1) Deposits\n 2) Withdrawals"));
+                           if (category < 1 || category > 2) {
+                              throw new NumberFormatException();
+                           }
+                        } while (category < 1 || category > 2);
                         break;
                   }
                }
@@ -120,8 +122,14 @@ public class ManagementApp{
     }
     
     public static boolean validDate(String date) { // return boolean
-         boolean valid = true;  // true only for testing
-          
+         boolean valid = false;  // true only for testing
+         
+            if (date.charAt(2) == '/' && date.charAt(5) == '/') { // Check for correct format of slashes
+               valid = true;
+            }
+            else {
+               JOptionPane.showMessageDialog(null, "Error: Date must be in format MM/DD/YY. Please try again.");
+            }
          return valid;
     }
     
