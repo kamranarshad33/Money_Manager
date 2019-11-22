@@ -23,7 +23,7 @@ public class ManagementApp{
         
         int menuOption = 0;
         do{
-            menuOption = getMenuOption(menu, menu.length);
+            menuOption = getMenuOption(menu, menu.length());
             switch(menuOption){
                 case 1:
                     JOptionPane.showMessageDialog(null, "add bank account");
@@ -37,6 +37,7 @@ public class ManagementApp{
                     break;
                 case 3:
                     JOptionPane.showMessageDialog(null, "transaction history");
+                    historySearch();
                     //historySearch(UserObj);
                     //historyReport() //reporting done at end of search instead
                     break;
@@ -81,5 +82,50 @@ public class ManagementApp{
             }
         }while(option < 1 || option > length);
         return option;
+    }
+    
+    public static void historySearch() {
+        int option = 0;
+        String date = "";
+        int category = 0;
+ 
+        do{
+            try {
+               option = Integer.parseInt(JOptionPane.showInputDialog(null, "Search transactions by:\n 1) Date\n 2) Category",
+                  "Search Transaction History", JOptionPane.QUESTION_MESSAGE));
+               if (option < 1 || option > 2) {
+                  throw new NumberFormatException();
+               }
+               else {
+                  switch(option) {
+                     case 1: // Search by Date
+                        date = JOptionPane.showInputDialog(null, "Enter a date in the format of MM/DD/YY: ");
+                        if (validDate(date)) {
+                        
+                        }
+                        break;
+                     case 2: // Search by transaction category
+                        category = Integer.parseInt(JOptionPane.showInputDialog(null, "Search by:\n 1) Deposits\n 2) Withdrawals"));
+                        if (category < 1 || category > 2) {
+                           throw new NumberFormatException();
+                        }
+                        break;
+                  }
+               }
+            }
+            catch (NumberFormatException e) {
+               JOptionPane.showMessageDialog(null, "Error: Search Choice must be number 1 or 2.  Please try again.");
+            }
+        }while(option < 1 || option > 2);      
+    }
+    
+    public static boolean validDate(String date) { // return boolean
+         boolean valid = true;  // true only for testing
+          
+         return valid;
+    }
+    
+    public static void historyReport() {
+    
     }
 }
