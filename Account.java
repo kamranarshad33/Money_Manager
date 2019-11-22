@@ -33,7 +33,7 @@ public abstract class Account{
     public double getBalance(){
         return this.balance;
     }
-    public void getTransactions(){//Tranaction[] getTransactions(){
+    public void getTransactions(){ //Tranaction[] getTransactions(){
         //make copy
         //Transaction[] copy = original
         //return this.copy;
