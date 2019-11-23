@@ -1,3 +1,6 @@
+/**
+   Follows the flow of the first part of the UI in ManagementApp
+*/
 import javax.swing.JOptionPane;
 
 public class TestUI {
@@ -7,24 +10,26 @@ public class TestUI {
       
       // Different methods based on existing or new account path?
       if (JOptionPane.showConfirmDialog(null, start) == JOptionPane.YES_OPTION) {
-         existUser();
+         login(); // Existing user
       }
       else {
-         newUser();
+         signup(); // New user
       }
+      
+      // Main Menu
 
    }
    
    // Existing Account path
-   public static void existUser() { // validate + return validated Acct obj to main?
+   public static void login() { // validate + return validated Acct obj to main?
       System.out.println("Existing"); // testcheck
       // Gather User Info
       String uname = "";
       String pw = "";
       boolean valid = false;
       do {
-         uname = JOptionPane.showInputDialog(null, "Enter username: ", "Existing User Login", JOptionPane.QUESTION_MESSAGE);
-         pw = JOptionPane.showInputDialog(null, "Enter password: ", "Existing User Login", JOptionPane.QUESTION_MESSAGE);
+         uname = JOptionPane.showInputDialog(null, "Username: ", "Existing User Login", JOptionPane.QUESTION_MESSAGE);
+         pw = JOptionPane.showInputDialog(null, "Password: ", "Existing User Login", JOptionPane.QUESTION_MESSAGE);
          /*
             // Bank = placeholder for correct object
             if (Bank.validateUser(uname, pw) {
@@ -33,17 +38,17 @@ public class TestUI {
             }
             else {
                if (JOptionPane.showConfirmDialog(null, "Would you like to try again? ", "Existing User Login", YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                  existUser();
+                  login();
                }
             }
          */
-         valid = true;
+         //valid = true;
       } while(!valid);
       // Go to main menu
    }
    
    // New Account path
-   public static void newUser() {
+   public static void signup() {
       System.out.println("New"); // testcheck
       // Gather User Info   
       String uname = "";
@@ -56,7 +61,7 @@ public class TestUI {
          // Bank = placeholder for correct object
          if (Bank.validateUser(uname, pw)) {
             JOptionPane.showMessageDialog(null, "This account already exists. Taking to Existing User Login.", "New User Signup");
-            existUser();
+            login();
          }
          else {
             Bank.addUser(uname, pw) method implement?
