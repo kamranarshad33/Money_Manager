@@ -74,4 +74,9 @@ public class Bank{
         //boolean validUser = validateUser(username, password);
         Account newAcc = new SavingsAcc(username, balance);
     }
+    
+    public void addCreditAcc(String username, String password, double balance){
+        //boolean validUser = validateUser(username, password);
+        Account newAcc = new CreditAcc(username, balance);
+    }
 }
