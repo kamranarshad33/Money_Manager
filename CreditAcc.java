@@ -8,7 +8,11 @@ public class CreditAcc extends Account {
       
    }  
    
-   public CreditAcc(String username) {
+   public CreditAcc(String username, double balance) {
       super(username);
+   }
+   
+   public double getCreditLimit() {
+      return creditLimit;
    }
 }
