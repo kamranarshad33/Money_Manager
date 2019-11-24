@@ -83,4 +83,8 @@ public abstract class Account{
             setBalance(newBal);
         }
     }
+    
+    public String toString() {
+      return accNum + " " + balance;
+    }
 }
