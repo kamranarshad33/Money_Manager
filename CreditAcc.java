@@ -15,4 +15,8 @@ public class CreditAcc extends Account {
    public double getCreditLimit() {
       return creditLimit;
    }
+   
+    public String toString() {
+      return "Credit";
+    }
 }
