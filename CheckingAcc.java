@@ -9,5 +9,7 @@ public class CheckingAcc extends Account{
         super(username, balance);
     }
     
-    
+    public String toString() {
+      return "Checking";
+    }
 }
