@@ -7,7 +7,7 @@ public class Bank{
     //parallel arrays to be swapped out
     private String[] usernames; //prepopulate 
     private String[] passwords; //prepopulate: no protection because of test environment
-    // Alt: Map usernames and passwords?
+    // Possible Alt: Map usernames and passwords? key = username, value = pw
     Map<String, String> users;
     private double minBalance;
     
