@@ -1,3 +1,5 @@
+import java.util.*;
+
 //linkedlist and/or arraylist
 public class Bank{
     private String bankName;
@@ -5,6 +7,8 @@ public class Bank{
     //parallel arrays to be swapped out
     private String[] usernames; //prepopulate 
     private String[] passwords; //prepopulate: no protection because of test environment
+    // Alt: Map usernames and passwords?
+    Map<String, String> users;
     private double minBalance;
     
     private Bank(){
