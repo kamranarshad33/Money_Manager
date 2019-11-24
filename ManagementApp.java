@@ -11,23 +11,23 @@ public class ManagementApp{
         //do you have an account?
       String start = "Welcome to the Money Manager! \n\n Do you have an existing account?";
       
-      // Different methods based on existing or new account path?
       //yes? || no?
       //gather acc info || make account?
+      //validate acc info || yes? / no?
+      //valid? / not valid? || gather new acc info / quit
+      //main menu || again? / signup? / quit? || new? / not new?
+      //options || back to 3.1 / back to 3.2 / quit || back to 3.1 / again? / quit?
+      //options || looped sections or quit || looped section / back to 5.3 / quit
+        
+      //login/signup method calls here
+      
+      // Different methods based on existing or new account path?
       if (JOptionPane.showConfirmDialog(null, start) == JOptionPane.YES_OPTION) {
          login(); // Existing user
       }
       else {
          signup(); // New user
       }        
-
-        //validate acc info || yes? / no?
-        //valid? / not valid? || gather new acc info / quit
-        //main menu || again? / signup? / quit? || new? / not new?
-        //options || back to 3.1 / back to 3.2 / quit || back to 3.1 / again? / quit?
-        //options || looped sections or quit || looped section / back to 5.3 / quit
-        
-        //login/signup method calls here
         
         String menu = getMenu();
         
