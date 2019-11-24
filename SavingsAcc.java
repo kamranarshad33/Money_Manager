@@ -11,4 +11,8 @@ public class SavingsAcc extends Account{
         super(username, balance);
     }
     
+    public String toString() {
+      return "Savings";
+    }
+    
 }  
