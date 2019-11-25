@@ -71,6 +71,19 @@ public class Bank{
         return valid;
     }
     
+    // Alt to parallel arrays with usermap
+    public boolean validateUserMap(String username, String password) {
+      boolean valid = false;
+      for (Map.Entry m : users.entrySet()) {
+         if (m.getKey().equals(username) && m.getValue().equals(password)) {
+            valid = true;
+         }
+      }
+      if (!valid) {
+         throw new IllegalArgumentException("Username or Password does not match.");
+      }
+      return valid;
+    }
     
     public void addCheckingAcc(String username, String password, double balance){
         //boolean validUser = validateUser(username, password);
