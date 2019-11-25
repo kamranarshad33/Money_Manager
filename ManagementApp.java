@@ -11,7 +11,8 @@ public class ManagementApp{
         //read from files to create objects: loadData();
             LinkedList<Bank> users = new LinkedList<Bank>();
             try {
-               loadData();
+               loadData(users);
+               System.out.println(users.size());
             }
             catch (FileNotFoundException f) {
         
@@ -161,7 +162,7 @@ public class ManagementApp{
         return option;
     }
     
-    public static void loadData() throws FileNotFoundException, IOException {
+    public static void loadData(LinkedList<Bank> users) throws FileNotFoundException, IOException {
       // prepopulate date from input file
       Bank user;
       String filepath = "./prepop.txt";
@@ -184,6 +185,7 @@ public class ManagementApp{
          //System.out.println(bal);
          user = new Bank("Money Manager", bal);
          user.users.put(uname, pw);
+         users.add(user);
          System.out.println(user.users.entrySet());
       }
     }
