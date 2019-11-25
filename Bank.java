@@ -10,12 +10,13 @@ public class Bank{
     private String[] usernames; //prepopulate 
     private String[] passwords; //prepopulate: no protection because of test environment
     // Possible Alt: Map usernames and passwords? key = username, value = pw
-    private Map<String, String> users;
+    public Map<String, String> users;
     private double minBalance;
     
     private Bank(){
         //initialize data structures
         accts = new LinkedList<Account>();
+        users = new HashMap<String, String>();
     }
     
     public Bank(String name){
