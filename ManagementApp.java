@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 public class ManagementApp{
     public static void main(String[] args){
         //read from files to create objects: loadData();
+            Bank user;
             //addUser(info);
             //validateUser(user)
             //addBankAccount(info);
