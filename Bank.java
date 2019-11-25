@@ -4,16 +4,18 @@ import java.util.*;
 public class Bank{
     private String bankName;
     private Account[] bankAccs;
+    //Alt:
+    private LinkedList<Account> accts;
     //parallel arrays to be swapped out
     private String[] usernames; //prepopulate 
     private String[] passwords; //prepopulate: no protection because of test environment
     // Possible Alt: Map usernames and passwords? key = username, value = pw
-    Map<String, String> users;
+    private Map<String, String> users;
     private double minBalance;
     
     private Bank(){
         //initialize data structures
-        
+        accts = new LinkedList<Account>();
     }
     
     public Bank(String name){
@@ -71,16 +73,19 @@ public class Bank{
     
     public void addCheckingAcc(String username, String password, double balance){
         //boolean validUser = validateUser(username, password);
-        Account newAcc = new CheckingAcc(username, balance);     
+        Account newAcc = new CheckingAcc(username, balance);
+        accts.add(newAcc);     
     }
     
     public void addSavingsAcc(String username, String password, double balance){
         //boolean validUser = validateUser(username, password);
         Account newAcc = new SavingsAcc(username, balance);
+        accts.add(newAcc);  
     }
     
     public void addCreditAcc(String username, String password, double balance){
         //boolean validUser = validateUser(username, password);
         Account newAcc = new CreditAcc(username, balance);
+        accts.add(newAcc);  
     }
 }
