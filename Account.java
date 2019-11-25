@@ -1,11 +1,15 @@
+import java.util.LinkedList;
+import java.util.Date;
+
 public abstract class Account{
     private String accNum;
     private String username;
     private double balance;
     private double interestRate;
-    private Transaction[] transactions; // change data structure later
-    
+    private LinkedList<Transaction> transactions;
+        
     public Account(){
+        this.transactions = new LinkedList<Transaction>();
         //randomized account number
         String accNum_12 = "";
         accNum_12 += (long) (Math.random() * 1000000000000L);
@@ -22,8 +26,6 @@ public abstract class Account{
         this.balance = balance;
     }
     
-    
-    
     public String getAccNum(){
         return this.accNum;
     }
@@ -33,10 +35,13 @@ public abstract class Account{
     public double getBalance(){
         return this.balance;
     }
-    public void getTransactions(){//Tranaction[] getTransactions(){
-        //make copy
-        //Transaction[] copy = original
-        //return this.copy;
+    public LinkedList<Transaction>  getTransactions(){ 
+        LinkedList<Transaction> copyList = new LinkedList<Transaction>();
+        for(Transaction curr : this.transactions){
+            Transaction copy = new Transaction(curr.getAmount(), curr.getDate(), curr.getTransType());
+            copyList.add(copy);
+        }
+        return copyList;
     }
     
     private void setAccNum(String accNum){
@@ -48,15 +53,19 @@ public abstract class Account{
     private void setBalance(double balance){
         this.balance = balance;
     }
-    private void setTransactions(){//Tranaction[] getTransactions(){
-        //make copy
-        //Transaction[] copy = original
-        //return this.copy;
+    
+    private void setTransaction(LinkedList<Transaction> newTransList){
+        LinkedList<Transaction> copyList = new LinkedList<Transaction>();
+        for(Transaction curr : this.transactions){
+            Transaction copy = new Transaction(curr.getAmount(), curr.getDate(), curr.getTransType());
+            copyList.add(copy);
+        }
+        this.transactions = copyList;
     }
     
     
-    public void withdrawal(double amount){
-        //String transType = "Withdrawal";
+    public void withdrawal(double amount){//, Date date){
+        String transType = "Withdrawal";
         if(amount < 0){
             throw new IllegalArgumentException("Withdrawal amount needs to be a positive number");
         }
@@ -64,22 +73,30 @@ public abstract class Account{
             throw new IllegalArgumentException("Withdrawal amount needs to be less than the balance: " + this.balance);
         }
         else{
-            //get transaction date
-            //make and store new transaction object
-            double newBal = getBalance() - 0;//transaction amount
+            //Transaction transaction = new Transaction(amount, date, transType); 
+            //this.transactions.add(transaction);
+            double newBal = getBalance() - 0;//transaction.getAmount//transaction amount
+            //if(newBal < bank.getMinBalance()){
+            //    
+            //}
             setBalance(newBal);
         }
     }
-    public void deposit(double amount){
-        //String transType = "Deposit";
+    
+    public void deposit(double amount){//, Date date){
+        String transType = "Deposit";
         if(amount < 0){
             throw new IllegalArgumentException("Deposit amount needs to be a positive number");
         }
         else{
-            //get transaction date
-            //make and store new transaction object
-            double newBal = getBalance() - 0;//transaction amount
+            //Transaction transaction = new Transaction(amount, date, transType);
+            //this.transactions.add(transaction);
+            double newBal = getBalance() + 0;//transaction.getAmount();//transaction amount
             setBalance(newBal);
         }
+    }
+    
+    public String toString() {
+      return accNum + " " + balance;
     }
 }
