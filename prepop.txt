@@ -1,0 +1,2 @@
+user1,1234,checking,500.00
+user2,2334,savings,1000.00
