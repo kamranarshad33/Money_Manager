@@ -146,6 +146,27 @@ public class ManagementApp{
         return option;
     }
     
+    public static void loadData() {
+      // prepopulate date from input file
+    }
+    
+    public static void addBankAcc() {
+      int choice = Integer.parseInt(JOptionPane.showInputDialog(null, "Choose account type:\n 1) Checking\n 2) Savings\n 3) Credit", "Existing User Login", 
+                     JOptionPane.QUESTION_MESSAGE));    
+    }
+    
+    public static void newTransction(Account acct) {
+      
+    }
+    
+    public static void getBankAcct() {  // return Account
+    
+    }
+    
+    public static void receipt() {
+    
+    }
+    
     public static void historySearch() {
         int option = 0;
         String date = "";
@@ -197,5 +218,9 @@ public class ManagementApp{
     
     public static void historyReport() {
     
+    }
+    
+    public static void generateReport() {
+      // toString()s
     }
 }
