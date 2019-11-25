@@ -1,9 +1,13 @@
+import java.util.*;
+
 public abstract class Account{
     private String accNum;
     private String username;
     private double balance;
     private double interestRate;
-    private Transaction[] transactions; // change data structure later
+    //private Transaction[] transactions; // change data structure later
+    //Alt:
+    private LinkedList<String> transactions;
     
     public Account(){
         //randomized account number
@@ -12,6 +16,7 @@ public abstract class Account{
         this.accNum = accNum_12;
         //randomized interest rate (0-10%)
         this.interestRate = (double)(int)(Math.random() * 100)/10;
+        transactions = new LinkedList<String>();
     }
     public Account(String userName){
         this();
@@ -52,6 +57,7 @@ public abstract class Account{
         //make copy
         //Transaction[] copy = original
         //return this.copy;
+        //transactions.add(Transaction.toString());
     }
     
     
