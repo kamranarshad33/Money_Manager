@@ -1,10 +1,24 @@
-
+import java.util.*;
 import javax.swing.JOptionPane;
+import java.io.File;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class ManagementApp{
     public static void main(String[] args){
         //read from files to create objects: loadData();
-            Bank user;
+            LinkedList<Bank> users = new LinkedList<Bank>();
+            try {
+               loadData();
+            }
+            catch (FileNotFoundException f) {
+        
+            }
+            catch (IOException i) {
+            
+            }
             //addUser(info);
             //validateUser(user)
             //addBankAccount(info);
@@ -147,8 +161,31 @@ public class ManagementApp{
         return option;
     }
     
-    public static void loadData() {
+    public static void loadData() throws FileNotFoundException, IOException {
       // prepopulate date from input file
+      Bank user;
+      String filepath = "./prepop.txt";
+      
+      File file = new File(filepath);
+      Scanner scan = new Scanner(file);
+      String line = "";
+      
+      while (scan.hasNextLine()) {
+         line = scan.nextLine();
+         Scanner scanLine = new Scanner(line);
+         scanLine.useDelimiter(",");
+         String uname = scanLine.next().trim();
+         //System.out.println(uname);
+         String pw = scanLine.next().trim();
+         //System.out.println(pw);
+         String acctType = scanLine.next().trim();
+         //System.out.println(acctType);
+         double bal = Double.parseDouble(scanLine.next().trim());
+         //System.out.println(bal);
+         user = new Bank("Money Manager", bal);
+         user.users.put(uname, pw);
+         System.out.println(user.users.entrySet());
+      }
     }
     
     public static void addBankAcc() {
