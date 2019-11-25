@@ -4,7 +4,8 @@ public abstract class Transaction{
     private double amount;
     private String transDate; //date needed for search
     private String transType;
-   
+    
+    public Transaction() {}
     
     public double getAmount(){
         return this.amount;    
@@ -39,5 +40,9 @@ public abstract class Transaction{
       else {
          throw new IllegalArgumentException("Error: Deposit and withdrawal are only options.");
       }
+    }
+    
+    public String toString() {
+      return getDate() + " " + getTransType() + " $" + getAmount();
     }
 }  
