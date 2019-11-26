@@ -217,9 +217,39 @@ public class ManagementApp{
       }
     }
     
-    public static void addBankAcc() {
-      int choice = Integer.parseInt(JOptionPane.showInputDialog(null, "Choose account type:\n 1) Checking\n 2) Savings\n 3) Credit", "Existing User Login", 
-                     JOptionPane.QUESTION_MESSAGE));    
+    public static void addBankAcc(Bank currentUser) {
+      int choice = 0;
+      double balance = 0;
+      do {
+         try {
+            choice = Integer.parseInt(JOptionPane.showInputDialog(null, "Choose account type:\n 1) Checking\n 2) Savings\n 3) Credit", "Existing User Login", 
+                     JOptionPane.QUESTION_MESSAGE));
+            if (choice < 1 || choice > 3) {
+               throw new NumberFormatException();
+            }
+            else {
+               do {
+                  balance = Double.parseDouble(JOptionPane.showInputDialog(null, "Enter initial balance: ", "Existing User Login", 
+                     JOptionPane.QUESTION_MESSAGE));
+                  if (balance < 0) {
+                     throw new NumberFormatException("Balance must be a positive number");
+                  }
+               } while(balance < 0);
+               switch(choice) {
+                  case 1:
+                     //currentUser.addCheckAcc(currentUser.users.getKey(), currentUser.users.getValue(), 1000.00);
+                     break;
+                  case 2:
+                     break;
+                  case 3:
+                     break;
+               }
+            }
+         }
+         catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Choice must be between 1 and 3. Please try again.");
+         }
+      } while(choice < 1 || choice > 3);    
     }
     
     public static void newTransction(Account acct) {
