@@ -10,7 +10,7 @@ public class Bank{
     private String[] usernames; //prepopulate 
     private String[] passwords; //prepopulate: no protection because of test environment
     // Possible Alt: Map usernames and passwords? key = username, value = pw
-    public Map<String, String> users;
+    static public Map<String, String> users;
     private double minBalance;
     
     private Bank(){
@@ -72,7 +72,7 @@ public class Bank{
     }
     
     // Alt to parallel arrays with usermap
-    public boolean validateUserMap(String username, String password) {
+    public static boolean validateUserMap(String username, String password) {
       boolean valid = false;
       for (Map.Entry m : users.entrySet()) {
          if (m.getKey().equals(username) && m.getValue().equals(password)) {
