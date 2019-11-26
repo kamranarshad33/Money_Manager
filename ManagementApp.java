@@ -8,6 +8,10 @@ import java.io.IOException;
 
 public class ManagementApp{
     public static void main(String[] args){
+
+        String accttype = "What type of Account you want to add? \n 1: Saving Acct\n 2: Checking Acct\n 3: Credit Card";
+
+
         //read from files to create objects: loadData();
             LinkedList<Bank> users = new LinkedList<Bank>();
             try {
@@ -42,6 +46,7 @@ public class ManagementApp{
          login(); // Existing user
       }
       else {
+
          signup(); // New user
       }        
         
@@ -52,7 +57,7 @@ public class ManagementApp{
             menuOption = getMenuOption(menu, menu.length());
             switch(menuOption){
                 case 1:
-                    JOptionPane.showMessageDialog(null, "add bank account");
+                    JOptionPane.showInputDialog(null,accttype);
                     //addBankAcc();
                     break;
                 case 2:
