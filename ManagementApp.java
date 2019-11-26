@@ -48,7 +48,7 @@ public class ManagementApp{
       }
       else {
 
-         signup(); // New user
+         signup(users); // New user
       }        
         
         String menu = getMenu();
@@ -120,7 +120,7 @@ public class ManagementApp{
    }
    
    // New Account path
-   public static void signup() {
+   public static void signup(LinkedList<Bank> users) {
       System.out.println("New"); // testcheck
       // Gather User Info   
       String uname = "";
@@ -129,18 +129,20 @@ public class ManagementApp{
          System.out.println("Creating Account"); // testcheck
          uname = JOptionPane.showInputDialog(null, "Enter a username: ", "New User Signup", JOptionPane.QUESTION_MESSAGE);
          pw = JOptionPane.showInputDialog(null, "Enter a password: ", "New User Signup", JOptionPane.QUESTION_MESSAGE);
-         /*
-         // Bank = placeholder for correct object
-         if (Bank.validateUser(uname, pw)) {
-            JOptionPane.showMessageDialog(null, "This account already exists. Taking to Existing User Login.", "New User Signup");
-            login();
+         
+         // if matching account
+         if (Bank.validateUserMap(uname, pw)) {
+            JOptionPane.showMessageDialog(null, "This account already exists. Taking to Existing User Login.", "New User Signup", JOptionPane.QUESTION_MESSAGE);
+            login(users);
          }
          else {
-            Bank.addUser(uname, pw) method implement?
-            JOptionPane.showMessageDialog(null, "Thank you! Welcome, " + uname + "!", "New User Signup");  
+            Bank user = new Bank("Money Manager");
+            user.users.put(uname, pw);
+            users.add(user);            
+            JOptionPane.showMessageDialog(null, "Thank you! Welcome!", "New User Signup", JOptionPane.QUESTION_MESSAGE);  
          }
          // Go to main menu
-         */
+
       }
    }
     
