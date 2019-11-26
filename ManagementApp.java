@@ -97,24 +97,26 @@ public class ManagementApp{
       String uname = "";
       String pw = "";
       Bank currentUser = null;
-      boolean valid = false;
-      do {
+      boolean found = false;
+
          uname = JOptionPane.showInputDialog(null, "Username: ", "Existing User Login", JOptionPane.QUESTION_MESSAGE);
          pw = JOptionPane.showInputDialog(null, "Password: ", "Existing User Login", JOptionPane.QUESTION_MESSAGE);
          
          for (Bank user : users) {
             if (user.validateUserMap(uname, pw)) {
-               valid = true;
+               found = true;
                currentUser = user;
                JOptionPane.showMessageDialog(null, "Welcome back!", "Existing User Login", JOptionPane.QUESTION_MESSAGE);
             }
          }
-         if (!valid) {
-           JOptionPane.showMessageDialog(null, "User not found. Please try again. ", "Existing User Login", JOptionPane.QUESTION_MESSAGE);
+         if (!found) {
+            if (JOptionPane.showConfirmDialog(null, "User not found. Try again?") == JOptionPane.YES_OPTION) {
+               login(users);
+            }
+            else {
+               JOptionPane.showMessageDialog(null, "Enter 5 on the next screen to quit.", "Existing User Login", JOptionPane.QUESTION_MESSAGE);         
+            }
          }
-       
-         //valid = true;
-      } while(!valid);
       return currentUser;
       // Go to main menu
    }
