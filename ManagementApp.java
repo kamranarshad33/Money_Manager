@@ -237,13 +237,16 @@ public class ManagementApp{
                } while(balance < 0);
                switch(choice) {
                   case 1:
-                     //currentUser.addCheckAcc(currentUser.users.getKey(), currentUser.users.getValue(), 1000.00);
+                     //currentUser.addCheckAcc(currentUser.users.getKey(), currentUser.users.getValue(), balance);
                      break;
                   case 2:
+                     //currentUser.addSavingsAcc(currentUser.users.getKey(), currentUser.users.getValue(), balance);
                      break;
                   case 3:
+                     //currentUser.addCreditAcc(currentUser.users.getKey(), currentUser.users.getValue(), balance);
                      break;
                }
+               JOptionPane.showMessageDialog(null, "Account created successfully!");
             }
          }
          catch (NumberFormatException e) {
@@ -252,9 +255,35 @@ public class ManagementApp{
       } while(choice < 1 || choice > 3);    
     }
     
-    public static void newTransction(Account acct) {
-      int choice = Integer.parseInt(JOptionPane.showInputDialog(null, "Choose available account:\n 1) Checking\n 2) Savings\n 3) Credit", "Existing User Login", 
-                     JOptionPane.QUESTION_MESSAGE));       
+    public static void newTransaction(Account acct) {
+      int choice = 0;
+      double funds = 0;
+         do {
+            try {
+               choice = Integer.parseInt(JOptionPane.showInputDialog(null, "Choose available account:\n 1) Checking\n 2) Savings\n 3) Credit", "Existing User Login", 
+                     JOptionPane.QUESTION_MESSAGE)); 
+               if (choice < 1 || choice > 3) {
+                  throw new NumberFormatException();
+               }
+               else {
+                  /* Need to add question for deposit and withdrawal
+                  funds = Double.parseDouble(JOptionPane.showInputDialog(null, "Enter amount: ", "Existing User Login", 
+                     JOptionPane.QUESTION_MESSAGE));
+                  */
+                  switch(choice) {
+                     case 1:
+                        break;
+                     case 2:
+                        break;
+                     case 3:
+                        break;
+                  }
+               }
+            }
+            catch (NumberFormatException e) {
+               JOptionPane.showMessageDialog(null, "Choice must be between 1 and 3. Please try again.");
+            }
+         } while (choice < 1 || choice > 3);       
     }
     
     public static void getBankAcct() {  // return Account
