@@ -101,16 +101,17 @@ public class ManagementApp{
       do {
          uname = JOptionPane.showInputDialog(null, "Username: ", "Existing User Login", JOptionPane.QUESTION_MESSAGE);
          pw = JOptionPane.showInputDialog(null, "Password: ", "Existing User Login", JOptionPane.QUESTION_MESSAGE);
-       
-            if (Bank.validateUserMap(uname, pw)) {
+         
+         for (Bank user : users) {
+            if (user.validateUserMap(uname, pw)) {
                valid = true;
+               currentUser = user;
                JOptionPane.showMessageDialog(null, "Welcome back!", "Existing User Login", JOptionPane.QUESTION_MESSAGE);
             }
-            else {
-               if (JOptionPane.showConfirmDialog(null, "User not found. Try again? ", "Existing User Login", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                  login(users);
-               }
-            }
+         }
+         if (!valid) {
+           JOptionPane.showMessageDialog(null, "User not found. Please try again. ", "Existing User Login", JOptionPane.QUESTION_MESSAGE);
+         }
        
          //valid = true;
       } while(!valid);
@@ -198,15 +199,16 @@ public class ManagementApp{
          //System.out.println(bal);
          
          // Pre populate user
+         /*
          user = new Bank("Money Manager", bal);
          user.users.put(uname, pw);
          user.addCheckingAcc(uname, pw, bal);
          users.add(user);
+         */
 
-         /*
          users.addLast(new Bank("Money Manager", bal));
          users.getFirst().users.put(uname, pw);
-         */
+
          //System.out.println(user.users.entrySet());
       }
     }
