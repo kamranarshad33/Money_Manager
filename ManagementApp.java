@@ -199,16 +199,16 @@ public class ManagementApp{
          //System.out.println(bal);
          
          // Pre populate user
-         /*
+         
          user = new Bank("Money Manager", bal);
          user.users.put(uname, pw);
          user.addCheckingAcc(uname, pw, bal);
          users.add(user);
-         */
 
+         /*
          users.addLast(new Bank("Money Manager", bal));
          users.getFirst().users.put(uname, pw);
-
+         */
          //System.out.println(user.users.entrySet());
       }
     }
