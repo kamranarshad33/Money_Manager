@@ -44,6 +44,7 @@ public class ManagementApp{
       // Different methods based on existing or new account path?
       if (JOptionPane.showConfirmDialog(null, start) == JOptionPane.YES_OPTION) {
          login(); // Existing user
+
       }
       else {
 
@@ -57,7 +58,7 @@ public class ManagementApp{
             menuOption = getMenuOption(menu, menu.length());
             switch(menuOption){
                 case 1:
-                    JOptionPane.showInputDialog(null,accttype);
+                    JOptionPane.showInputDialog(null,getAcctMenu());
                     //addBankAcc();
                     break;
                 case 2:
@@ -153,7 +154,13 @@ public class ManagementApp{
         }
         return menuStr;      
     }
-    
+
+    public static String getAcctMenu(){
+        String accttype = "What type of Account you want to add? \n 1: Saving Acct\n 2: Checking Acct\n 3: Credit Card";
+        return accttype;
+    }
+
+
     public static int getMenuOption(String menu, int length){
         int option = 0;
         do{
