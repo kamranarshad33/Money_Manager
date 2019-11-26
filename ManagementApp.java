@@ -43,7 +43,7 @@ public class ManagementApp{
       
       // Different methods based on existing or new account path?
       if (JOptionPane.showConfirmDialog(null, start) == JOptionPane.YES_OPTION) {
-         login(); // Existing user
+         Bank currentUser = login(users); // Existing user
 
       }
       else {
@@ -91,29 +91,30 @@ public class ManagementApp{
     }
     
    // Existing Account path
-   public static void login() { // validate + return validated Acct obj to main?
+   public static Bank login(LinkedList<Bank> users) { // validate + return validated Bank user obj to main?
       System.out.println("Existing"); // testcheck
       // Gather User Info
       String uname = "";
       String pw = "";
+      Bank currentUser = null;
       boolean valid = false;
       do {
          uname = JOptionPane.showInputDialog(null, "Username: ", "Existing User Login", JOptionPane.QUESTION_MESSAGE);
          pw = JOptionPane.showInputDialog(null, "Password: ", "Existing User Login", JOptionPane.QUESTION_MESSAGE);
-         /*
-            // Bank = placeholder for correct object
-            if (Bank.validateUser(uname, pw) {
+       
+            if (Bank.validateUserMap(uname, pw)) {
                valid = true;
-               JOptionPane.showMessageDialog(null, "Welcome back, " + uname + "!", "Existing User Login");
+               JOptionPane.showMessageDialog(null, "Welcome back!", "Existing User Login", JOptionPane.QUESTION_MESSAGE);
             }
             else {
-               if (JOptionPane.showConfirmDialog(null, "Would you like to try again? ", "Existing User Login", YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                  login();
+               if (JOptionPane.showConfirmDialog(null, "User not found. Try again? ", "Existing User Login", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                  login(users);
                }
             }
-         */
+       
          //valid = true;
       } while(!valid);
+      return currentUser;
       // Go to main menu
    }
    
@@ -195,10 +196,18 @@ public class ManagementApp{
          //System.out.println(acctType);
          double bal = Double.parseDouble(scanLine.next().trim());
          //System.out.println(bal);
+         
+         // Pre populate user
          user = new Bank("Money Manager", bal);
          user.users.put(uname, pw);
+         user.addCheckingAcc(uname, pw, bal);
          users.add(user);
-         System.out.println(user.users.entrySet());
+
+         /*
+         users.addLast(new Bank("Money Manager", bal));
+         users.getFirst().users.put(uname, pw);
+         */
+         //System.out.println(user.users.entrySet());
       }
     }
     
@@ -208,7 +217,8 @@ public class ManagementApp{
     }
     
     public static void newTransction(Account acct) {
-      
+      int choice = Integer.parseInt(JOptionPane.showInputDialog(null, "Choose available account:\n 1) Checking\n 2) Savings\n 3) Credit", "Existing User Login", 
+                     JOptionPane.QUESTION_MESSAGE));       
     }
     
     public static void getBankAcct() {  // return Account
