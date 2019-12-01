@@ -1,3 +1,6 @@
+import java.util.*;
+import java.util.LinkedList;
+
 // Only withdrawals, no deposits allowed? I really want to remove this class... too much of a headache to keep...
 
 public class CreditAcc extends Account {

@@ -1,9 +1,20 @@
 //login info/check to map?
+import java.util.LinkedList;
+import java.io.BufferedReader;
+import java.util.*;
 import javax.swing.JOptionPane;
+import java.io.File;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 public class ManagementApp{
     public static void main(String[] args){
+        //Prepopulate bank/bankacc/usersacc/transactions
+        populateData();     
         //read from files to create objects: loadData(); JUnit tester style adding of banks/bank accs/user accs/transactions/etc.
             //addUser(info);
             //validateUser(user)
@@ -161,7 +172,7 @@ public class ManagementApp{
                     break; 
             }
         }while(menuOption != 5);
-        return option;
+        return menuOption;
     }
     
     public static String getMenu(){
@@ -185,15 +196,12 @@ public class ManagementApp{
         }while(option < 1 || option > length);
         return option;
     }
+
     
     
-    
-        
-    
-    
-    
-    
-    
+    /***********************************************************************************************/
+    //search transactions
+    /***********************************************************************************************/
     public static void historySearch() {
         int option = 0;
         String date = "";
@@ -232,34 +240,149 @@ public class ManagementApp{
         }while(option < 1 || option > 2);    
     }
     
-    public static boolean validDate(String date) { // return boolean
-         boolean valid = false;  // true only for testing
-         
-            if (date.charAt(2) == '/' && date.charAt(5) == '/') { // Check for correct format of slashes
-               valid = true;
+    public static boolean validDate(String date) {
+         if(date.length() != 8){
+            JOptionPane.showMessageDialog(null, "Error: Date must be in format MM/DD/YY. Please try again.");
+            return false;
+         }
+         else{
+            for(int i = 0; i < date.length(); i++){
+                if(i == 0){
+                    if(date.charAt(i) != '0' || date.charAt(i) != '1'){
+                        JOptionPane.showMessageDialog(null, "Error: The first number in the date must be 0 or 1. Please try again.");
+                        return false;
+                    }
+                }
+                else if(i != 2 || i != 5){
+                    if(!Character.isDigit(date.charAt(i))){
+                        JOptionPane.showMessageDialog(null, "Error: The date can only contain numbers and /. Please try again.");
+                        return false;
+                    }
+                }
+                else{
+                    if(date.charAt(i) != '/'){
+                        JOptionPane.showMessageDialog(null, "Error: The third and fifth character in the date must be a /. Please try again.");
+                        return false;
+                    }
+                }
             }
-            else {
-               JOptionPane.showMessageDialog(null, "Error: Date must be in format MM/DD/YY. Please try again.");
-            }
-         return valid;
-    }
-    
-    public static void historyReport(String date) {
-        
-    }
-    
-    public static void historyReport(int type) {
-        
-        if(type == 1){
-            //unless we are going to use W for withdrawal
-            String type = "Withdrawal"; 
-            
+            return true;
         }
     }
     
+    public static void historyReport(String date) {
+        String report = searchTransactions(date);
+        writeReport(report);
+    }
+    
+    public static void historyReport(int category) {
+        String report = "";
+        if(category == 1){
+            //unless we are going to use W for withdrawal
+            String type = "Withdrawal";
+            report = searchTransactions(type);
+        }
+        else if(category == 2){
+            //unless we are going to use D for deposit
+            String type = "Deposit"; 
+            report = searchTransactions(type);
+        }
+        writeReport(report);
+    }
+    
+    public static String searchTransactions(String key, AppUser UserObj){
+        LinkedList<Transaction> transactions = getTransactions();
+        String report = "";
+        if(!Character.isDigit(key.charAt(0))){
+            for(Transaction curr : transactions){
+                if(curr.getTransType().equals(key)){
+                    report += curr.toString();
+                }
+            }
+        }
+        else{
+            for(Transaction curr : transactions){
+                if(curr.getDate().equals(key)){
+                    report += curr.toString();
+                }
+            }
+        }
+        return report;
+    }
+    
+    //write to file??
+    public static void writeReport(String report){
+        
+    }
+    
+    /***********************************************************************************************/
     public static void quit(){
         JOptionPane.showMessageDialog(null, "Thank you for using the Money Management App.");
         System.exit(0);
     }
-
+    
+    /***********************************************************************************************/
+    //populate data
+    /***********************************************************************************************/
+    public static void populateData() throws FileNotFoundException, IOException{ //Begin getTransactions
+		
+        // for testing purposes we already prepopulated a file
+        String testpath = "prepop.txt";
+        BufferedReader br = new BufferedReader(new FileReader(new File(testpath)));
+		String line;
+		Scanner scan = null;
+		int charCounter = 0;
+        Bank bank = null; 
+        Account bankAcc = null;
+        User useracc = null;
+		while((line = br.readLine()) != null) {
+            switch (line.charAt(0)){
+                case 'b'://bank
+                    bank = createBank(line);
+                    break;
+                case 'a'://bank acc
+                    bankAcc = createBankAcc(bank, line);
+                    break;
+                case 'i'://user info
+                    createUserInfo(bank, line);
+                    break;
+                case 't'://transaction
+                    createTransaction(bankAcc, line);
+                    break;
+                case 'u'://user acc
+                    createUser(bankAcc, line);
+                    break;
+            }
+        }
+	}
+    
+    public static Bank createBank(String line){
+        String[] data = line.split(':');
+        Bank bank = new Bank(data[1],data[2]);
+        return bank;
+    }
+    
+    public static Account createBankAcc(Bank bank, String line){
+        String[] data = line.split(':');
+        Account bankAcc = new Account(data[1],data[2]);
+        return bankAcc;
+    }
+    
+    public static void createUserInfo(Bank bank, String line){
+        String[] data = line.split(':');
+        bank.addUser(data[1],data[2]);
+        return bank;
+    }
+    
+    public static void createTransaction(Account bankAcc, String line){
+        String[] data = line.split(':');
+        Bank bank = new Bank(data[1],data[2]);
+        return bank;
+    }
+    
+    public static void createUser(String line){
+        String[] data = line.split(':');
+        AppUser user = new AppUser(data[1],data[2]);
+        return bank;
+    }
 }

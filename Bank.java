@@ -12,12 +12,13 @@ public class Bank{
     //private String[] passwords; //prepopulate: no protection because of test environment
     // Possible Alt: Map usernames and passwords? key = username, value = pw //Smart idea
     Map<String, String> userInfo; //key: Username
-    Map<String, Account> userAccs; //key: Username
+    Map<String, Account> bankAccs; //key: Username//bankAcc map is impossible.
     private double minBalance;
     
     private Bank(){
         //initialize data structures
-        this.userAccs = = new Hashtable<String, String>();
+        this.userInfo = new Hashtable<String, String>();
+        this.bankAccs = new Hashtable<String, Account>();
         this.minBalance = 0;
     }
     
@@ -46,14 +47,18 @@ public class Bank{
     private void setMinBalance(double minBalance){
         this.minBalance = minBalance;
     }
-    //to do
+    
     public boolean validateUser(String username, String password){
       if(userInfo.containsKey(username)){
-         
+         if(userInfo.get(username) != password){
+            return false;
+         }      
+         else{
+            return true;
+         }
       }
-      else{
-         System.out.println("The given phone number: " + key + " was not found.");
-      }
+      return false;
+
         /*//logic for parallel arrays
         int index = existingUser(username);
         boolean valid = false;
@@ -71,18 +76,40 @@ public class Bank{
     }
     
     
+    public void addUser(String username, String password){
+        boolean newUser = validateUser(username, password);
+        this.userInfo.put(username, password);
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    
     public void addCheckingAcc(String username, String password, double balance){
-        //boolean validUser = validateUser(username, password);
-        Account newAcc = new CheckingAcc(username, balance);     
+        boolean validUser = validateUser(username, password);
+        if(validUser){
+            bankAccs.put(username, new CheckingAcc(username, balance));
+        }
+        else{
+            System.out.println("Username is invalid. The checking account was not added.");//invalid user
+        }
     }
     
     public void addSavingsAcc(String username, String password, double balance){
-        //boolean validUser = validateUser(username, password);
-        Account newAcc = new SavingsAcc(username, balance);
+        boolean validUser = validateUser(username, password);
+        if(validUser){
+            bankAccs.put(username, new SavingsAcc(username, balance));
+        }
+        else{
+            System.out.println("Username is invalid. The savings account was not added.");//invalid user
+        }
     }
     
-    public void addCreditAcc(String username, String password, double balance){
-        //boolean validUser = validateUser(username, password);
-        Account newAcc = new CreditAcc(username, balance);
+    public void addCreditAcc(String username, String password, double limit){
+        boolean validUser = validateUser(username, password);
+        if(validUser){
+            bankAccs.put(username, new CreditAcc(limit));
+        }
+        else{
+            System.out.println("Username is invalid. The checking account was not added.");//invalid user
+        }
     }
 }

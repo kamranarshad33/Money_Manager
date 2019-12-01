@@ -26,6 +26,16 @@ public abstract class Account{
         this.balance = balance;
     }
     
+    //copy constructor
+    public Account(String accNum, String userName, double balance, double interest, LinkedList<Transaction> transactionList){
+        this.accNum = accNum;
+        this.username = userName;
+        this.balance = balance;
+        this.interestRate = interest;
+        this.transactions = transactionList;
+    }
+
+    
     public String getAccNum(){
         return this.accNum;
     }
@@ -35,7 +45,12 @@ public abstract class Account{
     public double getBalance(){
         return this.balance;
     }
-    public LinkedList<Transaction>  getTransactions(){ 
+    
+    public double getInterest(){
+        return this.interestRate;
+    }
+    
+    public LinkedList<Transaction> getTransactions(){ 
         LinkedList<Transaction> copyList = new LinkedList<Transaction>();
         for(Transaction curr : this.transactions){
             Transaction copy = new Transaction(curr.getAmount(), curr.getDate(), curr.getTransType());
@@ -79,6 +94,8 @@ public abstract class Account{
             //if(newBal < bank.getMinBalance()){
             //    
             //}
+            //if(this instanceof SavingAcc){
+            //    
             setBalance(newBal);
         }
     }
