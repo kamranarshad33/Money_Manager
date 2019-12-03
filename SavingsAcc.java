@@ -14,17 +14,18 @@ public class SavingsAcc extends Account{
         super(username, balance);
     }
     
-    public SavingsAcc(String accNum, String username, double balance, double interest, LinkedList<Transaction> trans, int limit, int numWD){
-        super(accNum, username, balance, interest, trans);
-        this.monthlyWDLimit = limit;
-        this.numWithdrawals = numWD;
+    //copy constructor
+    public SavingsAcc(SavingsAcc acc){
+        super(acc.getAccNum(), acc.getUsername(), acc.getBalance(), acc.getInterest(), acc.getTransactions());
+        this.monthlyWDLimit = acc.getWDLimit();
+        this.numWithdrawals = acc.getNumWD();
     }
     
-    public int WDLimit(){
+    public int getWDLimit(){
         return this.monthlyWDLimit;
     }
     
-    public int numWD(){
+    public int getNumWD(){
         return this.numWithdrawals;
     }
     

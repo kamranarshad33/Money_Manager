@@ -1,5 +1,4 @@
 import java.util.LinkedList;
-import java.util.Date;
 
 public abstract class Account{
     private String accNum;
@@ -34,14 +33,15 @@ public abstract class Account{
         this.interestRate = interest;
         this.transactions = transactionList;
     }
-
     
     public String getAccNum(){
         return this.accNum;
     }
+    
     public String getUsername(){
         return this.username;
     }
+    
     public double getBalance(){
         return this.balance;
     }
@@ -62,14 +62,27 @@ public abstract class Account{
     private void setAccNum(String accNum){
         this.accNum = accNum;
     }
-    private void setUsername(String userName){
+    public void setUsername(String userName){
         this.username = userName;
     }
     private void setBalance(double balance){
         this.balance = balance;
     }
     
-    private void setTransaction(LinkedList<Transaction> newTransList){
+    public void setTransaction(Transaction newTrans){
+        this.transactions.add(newTrans);
+        if(newTrans.getTransType().equalsIgnoreCase("Withdrawal")){
+            double newBal = this.balance - newTrans.getAmount();
+            setBalance(newBal);
+        }
+        else if(newTrans.getTransType().equalsIgnoreCase("Deposit")){
+            double newBal = this.balance + newTrans.getAmount();
+            setBalance(newBal);
+        }
+    }
+
+    
+    public void setTransactions(LinkedList<Transaction> newTransList){
         LinkedList<Transaction> copyList = new LinkedList<Transaction>();
         for(Transaction curr : this.transactions){
             Transaction copy = new Transaction(curr.getAmount(), curr.getDate(), curr.getTransType());
@@ -79,18 +92,18 @@ public abstract class Account{
     }
     
     
-    public void withdrawal(double amount){//, Date date){
+    public void withdrawal(Transaction trans){//, Date date){
         String transType = "Withdrawal";
-        if(amount < 0){
+        if(trans.getAmount() < 0){
             throw new IllegalArgumentException("Withdrawal amount needs to be a positive number");
         }
-        else if(amount > getBalance()){
+        else if(trans.getAmount() > getBalance()){
             throw new IllegalArgumentException("Withdrawal amount needs to be less than the balance: " + this.balance);
         }
         else{
             //Transaction transaction = new Transaction(amount, date, transType); 
             //this.transactions.add(transaction);
-            double newBal = getBalance() - 0;//transaction.getAmount//transaction amount
+            double newBal = getBalance() - trans.getAmount();//transaction amount
             //if(newBal < bank.getMinBalance()){
             //    
             //}
@@ -100,15 +113,15 @@ public abstract class Account{
         }
     }
     
-    public void deposit(double amount){//, Date date){
+    public void deposit(Transaction trans){
         String transType = "Deposit";
-        if(amount < 0){
+        if(trans.getAmount() < 0){
             throw new IllegalArgumentException("Deposit amount needs to be a positive number");
         }
         else{
             //Transaction transaction = new Transaction(amount, date, transType);
             //this.transactions.add(transaction);
-            double newBal = getBalance() + 0;//transaction.getAmount();//transaction amount
+            double newBal = getBalance() + trans.getAmount();//transaction amount
             setBalance(newBal);
         }
     }

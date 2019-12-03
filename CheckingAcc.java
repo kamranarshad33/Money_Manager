@@ -9,14 +9,16 @@ public class CheckingAcc extends Account{
     private CheckingAcc(){ 
            
     }
-    
-    public CheckingAcc(String accNum, String username, double balance, double interest, LinkedList<Transaction> trans){
-        super(accNum, username, balance, interest, trans);
-    }
-    
+
     public CheckingAcc(String username, double balance){
         super(username, balance);
     }
+
+    //copy constructor
+    public CheckingAcc(CheckingAcc acc){
+        super(acc.getAccNum(), acc.getUsername(), acc.getBalance(), acc.getInterest(), acc.getTransactions());
+    }    
+    
     
     public String toString() {
       return "Checking";

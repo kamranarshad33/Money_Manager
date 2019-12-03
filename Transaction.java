@@ -7,19 +7,18 @@ public class Transaction{
    
     private Transaction(){ }
     
-    //public Transaction(int amount, String date, String type){
-    public Transaction(double amount, Date date, String type){
+    public Transaction(double amount, String date, String type){
         if(amount >= 0){ 
             this.amount = amount;
         }
         else{
             throw new IllegalArgumentException("The transaction amount cannot be negative.");
         } 
-        //************* not sure how we are doing the date, please fix if this is wrong ************
-        transDate = String.format("%tD", date);
+        setDate(date);
         //we can change this based on what you think is better. 'W & D' OR 'Withdrawal & Deposit'
         //if(!type.equalsIgnoreCase("Withdrawal") || !type.equalsIgnoreCase("Deposit")){
-        if(!type.equalsIgnoreCase("W") || !type.equalsIgnoreCase("D")){
+        //System.out.println("type: " + type);
+        if(!(type.equalsIgnoreCase("Withdrawal") || type.equalsIgnoreCase("Deposit"))){
             throw new IllegalArgumentException("The transaction type was not valid.");
         }
         else{
@@ -28,10 +27,10 @@ public class Transaction{
     }
     
     //copy constructor
-    public Transaction(double amount, String date, String type){
-        this.amount = amount;
-        this.transDate = date;
-        this.transType = type;
+    public Transaction(Transaction original){
+        this.amount = original.getAmount();
+        this.transDate = original.getDate();
+        this.transType = original.getTransType();
     }
     
     public double getAmount(){
@@ -52,9 +51,31 @@ public class Transaction{
     }
     
     
-    public void setDate(Date userDate) {
-        // formats date to String = MM/DD/YY
-        transDate = String.format("%tD", userDate);
+    public void setDate(String date) {
+        if(date.length() > 8){
+            throw new IllegalArgumentException("The date given was too long.");
+        }
+        if(date.length() == 7){
+            String temp = "0" + date;
+            date = temp;
+        }
+        for(int i = 0; i < date.length(); i++){
+            //System.out.println("i-"+ i + ": " + date.charAt(i));
+            if(i != 2 && i != 5){
+                
+                if(!Character.isDigit(date.charAt(i))){
+                    throw new IllegalArgumentException("The date can only contain numeric values and '/'.");
+                }
+            }
+            //*
+            else if (i == 2 || i == 5){
+                if(date.charAt(i) != '/'){
+                    throw new IllegalArgumentException("The '/' character was not found in the right location.");
+                }
+            }
+            //*/
+        }
+        this.transDate = date;
     }
     
     public String getTransType() {
